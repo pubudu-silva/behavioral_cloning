@@ -26,9 +26,18 @@ Following are some basic statistics of the dataset that is key in making initial
 * There are lot of zeros observed in the steering angle just by eyeballing..
 * In fact the mean of absolute steering angles:0.07, varience: 0.01
 
-Above basic statistics of steering angle reveals that the majority of the time the human driver was not steering at all. As you will see later, this will be a key finding when debugging our machine learning module. Following is are three camera images for a raondom sample:
-![left](/left.jpg)
-![center](/center.jpg)
-![right](/right.jpg)
+Above basic statistics of steering angle reveals that the majority of the time the human driver was not steering at all. As you will see later, this will be a key finding when debugging our machine learning module. Following are three camera images for a raondom sample.
+Left camera image:
+
+![alt text](/left.jpg "Image from the left dash camera")
+
+
+Center camera image:
+![alt text](/center.jpg "Image from the center dash camera")
+
+
+Right camera image:
+![alt text](/right.jpg "Image from the right dash camera")
+
 
 

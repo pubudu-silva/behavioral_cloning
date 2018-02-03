@@ -41,6 +41,7 @@ Right camera image:
 ![alt text](/right.jpg "Image from the right dash camera")
 
 
+
 ## Tring out the most basic solution
 As with other projects, I am going to try the most basic solution with minimal work first to see what how far we can go with a minimalistic approach. This provides us an oppertunity to fail fast, prevent over desgining and learn by mistakes to reach the successful solution faster without overdoing it.
 
@@ -69,4 +70,40 @@ As mentioned above it is important to make sure that we are training a model tha
 
 I used a little bit deeper CNN thatn LeNet and added dropout layers to prevent over fitting. Following is the topology of the final CNN.
 
+Layer    | Description
+-------- | -----------
+Input | 64x64x3 RGB image
+Normalization | x/127.5 - 1.0
+1x1 Convolution | 1x1 stride, no padding; 3 filters
+3x3 Convolution | 1x1 stride, no padding; 32 filters
+RELU |       
+3x3 Convolution | 1x1 stride, no padding; 32 filters
+RELU |  
+Max Pooling | 2x2 kernal and stride, no padding
+Drop-out | probability = 0.5
+3x3 Convolution | 1x1 stride, no padding; 64 filters
+RELU |       
+3x3 Convolution | 1x1 stride, no padding; 64 filters
+RELU |  
+Max Pooling | 2x2 kernal and stride, no padding
+Drop-out | probability = 0.5
+3x3 Convolution | 1x1 stride, no padding; 128 filters
+RELU |       
+3x3 Convolution | 1x1 stride, no padding; 128 filters
+RELU |  
+Max Pooling | 2x2 kernal and stride, no padding
+Drop-out | probability = 0.5
+Fully Connected | 512 neurons
+RELU |    
+Fully Connected | 64 neurons
+RELU |
+Fully Connected | 16 neurons
+RELU |
+Fully Connected | 1 neuron
+Output | scaler
 
+Since this model is deeper and container much more parameters than the original LeNet we have to have lot more training samples at least in the oreder of 100K. Given the depth of augmentation pipeline with somewhat sophisticated image processing involved in some augmentations techniques, generating such an amount of samples via augmentation and keeping them all simultaneously in memory while training is too much for standard PC hardware specs. Hence I used python generators, a very important utility for deep learning offered in python. There are bunch of good tutorials online on how to use it effectively and I myself followed one of them. It is also important to implement augmentation techniques in the most computationally effective way and python has several tricks to do it fasr. As they say you can learn new things almost everyday as I did in this code for some of augmentations implementations.
+
+I trained the above model with 200K training samples and 40K validation samples per epoch with 8 epochs and 256 batch size. 
+
+Used the trained model in the simulator and the results are impressive. You can have a look your self at [this link](https://www.youtube.com/watch?v=oBj7UgQr1lE)

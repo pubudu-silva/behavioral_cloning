@@ -74,7 +74,7 @@ Layer    | Description
 -------- | -----------
 Input | 64x64x3 RGB image
 Normalization | x/127.5 - 1.0
-1x1 Convolution | 1x1 stride, no padding; 3 filters
+1x1 Convolution | 1x1 stride, no padding; 3 filters. (color space selection layer) 
 3x3 Convolution | 1x1 stride, no padding; 32 filters
 RELU |       
 3x3 Convolution | 1x1 stride, no padding; 32 filters

@@ -36,6 +36,7 @@ Center camera image:
 ![alt text](/center.jpg "Image from the center dash camera")
 
 
+
 Right camera image:
 ![alt text](/right.jpg "Image from the right dash camera")
 
@@ -64,5 +65,8 @@ Hence it is time to take all the above facts in to consideration and start fresh
 
 
 ## Using more sophisticated augmentation and with deeper model
+As mentioned above it is important to make sure that we are training a model that would perform equally well in various situations not just the situation we are going to test it in. One important way in assuring that is to either collect training data that represent as much diverese situation as possible or to artificially generate synthesis of such diverse situations via data augmentation. In this project I am going with the 2nd approach. Prior to deciding on what kind of data augmentation we will do, it is critical to think practically what kind of variations can we expect in different senarios for the problem at hand, that were not sufficently captured in the current dataset. There is a typical list of variations for general computer vision problems such as intensity, shifts in applicable directions, zooming in/out, rotations. Some of them like rotations and zooms doesn't apply for this specific problems. I also found out a somewhat rarely used variation, which turned out to be effective in this case, in somebody elses article: applying shadow. That is a very practical variation as different level of shawdows will be present depending on the time of the day and nature of the track even in simulators. Together with that I applied intensity variations, horizontal and vertical shifts, and sub-sampling to reduce the amount of visual information. It is always important that you applyaugmentations with the problem in mind; for example when applying horizontal shifts you have to reflect that in the corresponding steering angle too, but it is not necessary for the vertical shift. As mentioned in the begining I also used images from left and right cameras by treating them as originated from the center camera by adjusting corresponding steering angles via a simple linear equation. As I mentioned in previous posts, it is important that one doesn't go crazy with the augmentation and apply them in moderation with in reason. That includes limiting the amount of variations with in reasonable moderate boundries, and in some cases applying them stochastically with some probability. For example in creating new samples via augmentation, intensity variations and shifts can be permenent block in the pipeline applied to every augmentation, while special treatments like shadows can be applied probabilistically to selected augmentations only. I also addressed the only remaining concern from the initial statistics of the dataset: the fact that the majority of the steering angles are zero in the dataset. I followed a probabilistic approach to this too as we have to be careful in not overdoing the correction which would take us to the next extreme. I would only keep samples that has absolute steering angles less than a threshold of 0.1 only with a certain proabibility. That probability will exponentially drop with number of epochs.
+
+I used a little bit deeper CNN thatn LeNet and added dropout layers to prevent over fitting. Following is the topology of the final CNN.
 
 

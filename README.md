@@ -54,11 +54,15 @@ Let's refine by addressing the overfitting which was observed at the training ph
 
 The 2nd point can be addressed by cropping the bottom 1/5th and top 1/3rd out of the image before it is fed in to the CNN. The 3rd can be addressed via a simple augmentation trick: duplicating the entire dataset by flipping images horizontally and flipping the steering angle sign. This doubles the dataset and somewhat address the 1st concern too. Re-trained and validate the same network after above steps. This time there was no signs of overfitting from training and validation loss. Tried the model on the simulator. It drove OK for the most part, except for couple spots on the track, where it couldn't recover and went off the road.
 
-Still continuing in diagnosis and reactive mode and keeping to the true spirit of BC, I wanted to teach my model by example. i.e. by recording driving bahavior that would prevent the car from going off the tracks in situations where it failed. I literally took the car to spots where model started to go off tracks and recorded several examples of how I would recover from those situations. Added these new data points to the dataset, followed above augmentation and pre-processing steps with the whole dataset and trained a new model. Tried that model in the track and that did pretty well for couple of rounds in the track as you may see in [this video](www.youtube.com).
+Still continuing in diagnosis and reactive mode and keeping to the true spirit of BC, I wanted to teach my model by example. i.e. by recording driving bahavior that would prevent the car from going off the tracks in situations where it failed. I literally took the car to spots where model started to go off tracks and recorded several examples of how I would recover from those situations. Added these new data points to the dataset, followed above augmentation and pre-processing steps with the whole dataset and trained a new model. Tried that model in the track and that did pretty well for couple of rounds in the track as you may see in [this video](https://youtu.be/DIIoM9metRY).
 
 While this does the job, there are several issues with this result and the approach.
 * The approach I took to correct for situations where it went of the track (by recording more data points to show how to recover in those specific cases) is a solid example of how to overfit a model to specific environment - in this case to the specific track. Those kind of overfitting is not easily observable via traning and validation losses in an end-to-end training situation like this. These are the situations we should use our non-partial judgement about our own approaches.
-* Even though the car managed continue drive forward, a closer look at the video reveals that it drove over the curb number of times. Moreover its drive was not smooth as in several of the bends it was struggling to keep in the track.
-
+* Even though the car managed continue drive forward, a closer look at the video reveals that it drove over the curb number of times. Moreover its drive was not smooth as in several of the bends it was struggling to keep in the track especially with off-shoots from drastic corrective steering.
 
 Hence it is time to take all the above facts in to consideration and start fresh with a bit more sophisticated approach. 
+
+
+## Using more sophisticated augmentation and with deeper model
+
+
